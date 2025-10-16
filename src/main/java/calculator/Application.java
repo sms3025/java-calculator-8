@@ -4,6 +4,10 @@ public class Application {
     public static void main(String[] args) {
 
         Calculator calculator = new Calculator();
-        calculator.execute();
+        try {
+            calculator.execute();
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
