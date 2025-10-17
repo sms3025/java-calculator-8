@@ -7,7 +7,7 @@ public class UserInputClass {
     public UserInputClass() {
     }
 
-    public static String InputString() {
+    public static String inputString() {
         System.out.println("덧셈할 문자열을 입력해 주세요.");
         return readLine();
     }
