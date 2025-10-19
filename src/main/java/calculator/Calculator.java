@@ -13,10 +13,10 @@ public class Calculator {
 
     public void execute() {
         String userInputString = UserInput.inputString();
-        Long addSum = 0L;
+        Long sum = 0L;
 
         if (isNullOrEmpty(userInputString)) {
-            PrintMessage.printSum(addSum);
+            PrintMessage.printSum(sum);
             return;
         }
 
@@ -42,19 +42,19 @@ public class Calculator {
                 throw new IllegalArgumentException("양수가 아닌 값입니다.");
             }
 
-            addSum = addParsedNumber(userNumberTokenAsString, addSum);
+            sum = addParsedNumber(userNumberTokenAsString, sum);
         }
-        PrintMessage.printSum(addSum);
+        PrintMessage.printSum(sum);
     }
 
-    private Long addParsedNumber(String userNumberTokenAsString, Long addSum) {
+    private Long addParsedNumber(String userNumberTokenAsString, Long sum) {
         try {
             Long userInputNumber = Long.parseLong(userNumberTokenAsString);
-            addSum = Math.addExact(addSum, userInputNumber);
+            sum = Math.addExact(sum, userInputNumber);
         } catch (NumberFormatException | ArithmeticException e) {
             throw new IllegalArgumentException("너무 큰 값을 입력했습니다.");
         }
-        return addSum;
+        return sum;
     }
 
     private boolean isCustomDelimiter(String userInputString) {
