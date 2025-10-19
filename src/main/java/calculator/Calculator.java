@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 import utils.UserInput;
 
 public class Calculator {
+
     private String delimiterRegex = "[,:]";
 
     public Calculator() {
@@ -13,31 +14,30 @@ public class Calculator {
         String userInputString = UserInput.inputString();
         Long addSum = 0L;
 
-        if(isNullOrEmpty(userInputString)) {
+        if (isNullOrEmpty(userInputString)) {
             System.out.println("결과 : " + addSum);
             return;
         }
 
-        if(isCustomDelimiter(userInputString)) {
+        if (isCustomDelimiter(userInputString)) {
             Integer indexOfNewLine = userInputString.indexOf("\\n");
             if (isWrongIndexOfNewLine(indexOfNewLine)) {
                 throw new IllegalArgumentException("올바른 커스텀 구분자가 아닙니다.");
             }
-
             String customDelimiter = String.valueOf(userInputString.charAt(2));
             String customDelimiterRegex = Pattern.quote(customDelimiter);
-            delimiterRegex =  "(" + delimiterRegex + "|" + customDelimiterRegex + ")";
+            delimiterRegex = "(" + delimiterRegex + "|" + customDelimiterRegex + ")";
             userInputString = userInputString.substring(indexOfNewLine + 2);
         }
 
-        String[] userNumberTokensAsString = userInputString.split(delimiterRegex , -1);
+        String[] userNumberTokensAsString = userInputString.split(delimiterRegex, -1);
 
-        for(String userNumberTokenAsString : userNumberTokensAsString) {
-            if(isNullOrEmpty(userNumberTokenAsString)) {
+        for (String userNumberTokenAsString : userNumberTokensAsString) {
+            if (isNullOrEmpty(userNumberTokenAsString)) {
                 throw new IllegalArgumentException("잘못된 형식의 문자열입니다.");
             }
 
-            if(isNotPositiveNumber(userNumberTokenAsString)) {
+            if (isNotPositiveNumber(userNumberTokenAsString)) {
                 throw new IllegalArgumentException("양수가 아닌 값입니다.");
             }
 
