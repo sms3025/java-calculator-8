@@ -1,6 +1,7 @@
 package calculator;
 
 import java.util.regex.Pattern;
+import utils.PrintMessage;
 import utils.UserInput;
 
 public class Calculator {
@@ -15,7 +16,7 @@ public class Calculator {
         Long addSum = 0L;
 
         if (isNullOrEmpty(userInputString)) {
-            System.out.println("결과 : " + addSum);
+            PrintMessage.printSum(addSum);
             return;
         }
 
@@ -43,7 +44,7 @@ public class Calculator {
 
             addSum = addParsedNumber(userNumberTokenAsString, addSum);
         }
-        System.out.println("결과 : " + addSum);
+        PrintMessage.printSum(addSum);
     }
 
     private Long addParsedNumber(String userNumberTokenAsString, Long addSum) {
