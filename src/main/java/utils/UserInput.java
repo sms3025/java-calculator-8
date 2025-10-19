@@ -2,9 +2,9 @@ package utils;
 
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
-public class UserInputClass {
+public class UserInput {
 
-    public UserInputClass() {
+    public UserInput() {
     }
 
     public static String inputString() {
