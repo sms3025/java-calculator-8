@@ -1,6 +1,7 @@
 package calculator;
 
 import java.util.regex.Pattern;
+import utils.ErrorCode;
 import utils.PrintMessage;
 import utils.UserInput;
 
@@ -22,9 +23,11 @@ public class Calculator {
 
         if (isCustomDelimiter(userInputString)) {
             Integer indexOfNewLine = userInputString.indexOf("\\n");
+
             if (isWrongIndexOfNewLine(indexOfNewLine)) {
-                throw new IllegalArgumentException("올바른 커스텀 구분자가 아닙니다.");
+                invokeIllegalArgumentException(ErrorCode.WRONG_CUSTOM_DELIMITER);
             }
+
             String customDelimiter = String.valueOf(userInputString.charAt(2));
             String customDelimiterRegex = Pattern.quote(customDelimiter);
             delimiterRegex = "(" + delimiterRegex + "|" + customDelimiterRegex + ")";
@@ -35,11 +38,11 @@ public class Calculator {
 
         for (String userNumberTokenAsString : userNumberTokensAsString) {
             if (isNullOrEmpty(userNumberTokenAsString)) {
-                throw new IllegalArgumentException("잘못된 형식의 문자열입니다.");
+                invokeIllegalArgumentException(ErrorCode.WRONG_FORMATTING_STRING);
             }
 
             if (isNotPositiveNumber(userNumberTokenAsString)) {
-                throw new IllegalArgumentException("양수가 아닌 값입니다.");
+                invokeIllegalArgumentException(ErrorCode.NOT_POSITIVE_NUMBER);
             }
 
             sum = addParsedNumber(userNumberTokenAsString, sum);
@@ -52,9 +55,13 @@ public class Calculator {
             Long userInputNumber = Long.parseLong(userNumberTokenAsString);
             sum = Math.addExact(sum, userInputNumber);
         } catch (NumberFormatException | ArithmeticException e) {
-            throw new IllegalArgumentException("너무 큰 값을 입력했습니다.");
+            invokeIllegalArgumentException(ErrorCode.TOO_BIG_NUMBER);
         }
         return sum;
+    }
+
+    private void invokeIllegalArgumentException(ErrorCode errorCode) {
+        throw new IllegalArgumentException(errorCode.getErrorMessage());
     }
 
     private boolean isCustomDelimiter(String userInputString) {
